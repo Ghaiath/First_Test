@@ -17,6 +17,6 @@ public class math__operation {
 
     double divide(double num1, double num2) {
         double answer = num1/num2;
-        return answer;          
+        return answer;    
     }
 }
