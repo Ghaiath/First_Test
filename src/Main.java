@@ -7,16 +7,14 @@ import java.util.regex.Pattern;
 
 public class Main {
 	static final math__operation mathOperation = new math__operation();
-
-	// Meddelande för användning av programmet.
+	//Unescaped: ^\s*(\d+\.?\d*)\s*([\+\-\*\/])\s*(\d+\.?\d*)\s*$
+	static final Pattern pattern = Pattern.compile("^\\s*(\\d+(?:\\.\\d+)?)\\s*([\\+\\-\\*\\/])\\s*(\\d+(?:\\.\\d+)?)\\s*$");
 	static final String USAGE = "Usage is:\n"+
 			"<operator> <operand> <operator> (example: \"2.3 + 5.7\")\n"+
 			"Type \"quit\" to end the program.";
 
 
 	private static Double processExpression(String expression) throws OperationNotSupportedException {
-		//Unescaped: ^\s*(\d+\.?\d*)\s*([\+\-\*\/])\s*(\d+\.?\d*)\s*$
-		Pattern pattern = Pattern.compile("^\\s*(\\d+\\.?\\d*)\\s*([\\+\\-\\*\\/])\\s*(\\d+\\.?\\d*)\\s*$");
 		Matcher matcher = pattern.matcher(expression);
 
 		if (matcher.matches()){
@@ -67,7 +65,6 @@ public class Main {
 		StringBuilder stringBuilder = new StringBuilder();
 		for (String arg : args) {
 			stringBuilder.append(arg);
-			stringBuilder.append(" ");
 		}
 		String concatenatedCommandLineArguments = stringBuilder.toString().trim();
 
