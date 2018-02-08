@@ -2,6 +2,7 @@ import javax.naming.OperationNotSupportedException;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.StringJoiner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -105,11 +106,11 @@ public class Main {
 	 */
 	public static void main(String[] args) throws IOException {
 		// Build a expression from the arguments
-		StringBuilder stringBuilder = new StringBuilder();
+		StringJoiner stringJoiner = new StringJoiner(" ");
 		for (String arg : args) {
-			stringBuilder.append(arg);
+			stringJoiner.add(arg);
 		}
-		String concatenatedCommandLineArguments = stringBuilder.toString().trim();
+		String concatenatedCommandLineArguments = stringJoiner.toString().trim();
 
 		// If there was an expression passed as argument, evaluate that expression, display result and terminate.
 		// Otherwise the application enters interactive mode.
