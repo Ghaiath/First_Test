@@ -36,9 +36,14 @@ public class Main {
 	*/
 	private static final Pattern pattern = Pattern.compile("^\\s*(\\d+(?:\\.\\d+)?)\\s*([\\+\\-\\*\\/])\\s*(\\d+(?:\\.\\d+)?)\\s*$");
 	private static final math__operation mathOperation = new math__operation();
-	private static final String USAGE = "Usage is:\n" +
-										"<operator> <operand> <operator> (example: \"2.3 + 5.7\")\n"+
-										"Type \"quit\" to end the program.";
+	private static final String INTERACTIVE_MODE_USAGE = "Enter expression you wish to calculate or \"quit\" to terminate the application.\n" +
+														 "Supported expression are those of the form \"operand operator operand\" where\n" +
+													     "operand is any of the four basic math operations (+,-,% and *).";
+
+	private static final String COMMAND_LINE_MODE_USAGE = "USAGE:\n\tjava -jar calc.jar <expression>\n\nExample:\n\t> java -jar calc.jar 1 + 3\n\n" +
+														  "Supported expression are those of the form \"operand operator operand\" where\n" +
+														  "operand is any of the four basic math operations (+,-,% and *).";
+
 
 	/**
 	 * Evaluates a expression of the form: "operand1 operator operand2" (where operand is a Double and operator is +,-,*, or /).
@@ -79,7 +84,7 @@ public class Main {
 	/**
 	 * A mode that repeatedly asks the user for an expression to evaluate.
 	 * This continues until the user enters "quit". If the user inputs an invalid expression a message about
-	 * usage will be displayed (defined by the static field USAGE).
+	 * usage will be displayed (defined by the static field INTERACTIVE_MODE_USAGE).
 	 * @throws IOException
 	 */
 	private static void interactiveMode() throws IOException{
@@ -90,17 +95,15 @@ public class Main {
 				System.out.print("> ");
 				String userInput = bufferedReader.readLine();
 
-				if (userInput == null) // can occur if EOF is (example: CTRL+Z/CTRL+C in windows)
+				if (userInput == null || userInput.trim().equalsIgnoreCase("quit")) // can occur if EOF is (example: CTRL+Z/CTRL+C in windows)
 					return;
 
-				if (userInput.trim().equalsIgnoreCase("quit"))
-					break;
 				try {
 					System.out.println(evaluateExpression(userInput));
 				} catch (OperationNotSupportedException e) {
-					System.out.println(USAGE);
+					System.out.println(INTERACTIVE_MODE_USAGE);
 				}
-			};
+			}
 		}
 	}
 
@@ -123,10 +126,10 @@ public class Main {
 			try {
 				System.out.println(evaluateExpression(concatenatedCommandLineArguments));
 			} catch (OperationNotSupportedException e) {
-				System.out.println(USAGE);
+				System.out.println(COMMAND_LINE_MODE_USAGE);
 			}
 		} else {
-			System.out.println(USAGE);
+			System.out.println(INTERACTIVE_MODE_USAGE);
 			interactiveMode();
 		}
 	}
