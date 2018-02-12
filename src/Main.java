@@ -66,11 +66,13 @@ public class Main {
 					return mathOperation.divide(operand1,operand2);
 				case '*':
 					return mathOperation.multiply(operand1,operand2);
+				default:
+					throw new OperationNotSupportedException("The expression has invalid format");
 			}
 		}
-
-		// I would put this in an else statement but the compiler whines about unreachable code.
-		throw new OperationNotSupportedException("The expression has invalid format");
+		else {
+			throw new OperationNotSupportedException("The expression has invalid format");
+		}
 	}
 
 
