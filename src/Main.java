@@ -88,10 +88,13 @@ public class Main {
 
 			while (true) {
 				System.out.print("> ");
-				String userInput = bufferedReader.readLine().trim();
-				if (userInput.equalsIgnoreCase("quit"))
-					break;
+				String userInput = bufferedReader.readLine();
 
+				if (userInput == null) // can occur if EOF is (example: CTRL+Z/CTRL+C in windows)
+					return;
+
+				if (userInput.trim().equalsIgnoreCase("quit"))
+					break;
 				try {
 					System.out.println(evaluateExpression(userInput));
 				} catch (OperationNotSupportedException e) {
@@ -123,6 +126,7 @@ public class Main {
 				System.out.println(USAGE);
 			}
 		} else {
+			System.out.println(USAGE);
 			interactiveMode();
 		}
 	}
